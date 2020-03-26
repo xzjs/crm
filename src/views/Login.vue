@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="loginform">
       <p>诸葛小戴</p>
       <el-form>
@@ -68,21 +68,30 @@ export default {
 </script>
 
 <style scoped lang="less">
-.loginform {
-  width: 368px;
-  p {
-    font-size: 32px;
-  }
-  .vcode {
-    width: 258px;
-  }
-  img,
-  .sendmessage {
-    width: 102px;
-    vertical-align: bottom;
-  }
-  .loginBtn {
-    width: 100%;
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  .loginform {
+    width: 380px;
+    padding: 0 20px;
+    p {
+      font-size: 32px;
+    }
+    .vcode {
+      width: 258px;
+    }
+    img,
+    .sendmessage {
+      width: 112px;
+      margin-left: 10px;
+      vertical-align: bottom;
+    }
+    .loginBtn {
+      width: 100%;
+    }
   }
 }
 </style>
