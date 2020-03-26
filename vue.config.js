@@ -1,5 +1,5 @@
 module.exports = {
-    devServer: {
-        proxy:  'http://crm.xuezhijunshang.online'
-    }
+  devServer: {
+    proxy: 'http://crm.xuezhijunshang.online'
+  }
 };

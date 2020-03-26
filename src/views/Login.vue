@@ -1,10 +1,14 @@
 <template>
-  <div>
+  <div class="container">
     <div class="loginform">
       <p>诸葛小戴</p>
       <el-form>
         <el-form-item>
-          <el-input placeholder="手机号" prefix-icon="el-icon-user" v-model="mobile"></el-input>
+          <el-input
+            placeholder="手机号"
+            prefix-icon="el-icon-user"
+            v-model="mobile"
+          ></el-input>
         </el-form-item>
         <el-form-item>
           <el-input
@@ -41,12 +45,12 @@ export default {
   methods: {
     get_captcha() {
       this.axios
-        .get("/v1/captcha")
-        .then(response => {
+        .get('/v1/captcha')
+        .then((response) => {
           this.captcha = response.data.B64s;
           this.captcha_id = response.data.ID;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -72,21 +76,30 @@ export default {
 </script>
 
 <style scoped lang="less">
-.loginform {
-  width: 368px;
-  p {
-    font-size: 32px;
-  }
-  .vcode {
-    width: 258px;
-  }
-  img,
-  .sendmessage {
-    width: 102px;
-    vertical-align: bottom;
-  }
-  .loginBtn {
-    width: 100%;
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  .loginform {
+    width: 380px;
+    padding: 0 20px;
+    p {
+      font-size: 32px;
+    }
+    .vcode {
+      width: 258px;
+    }
+    img,
+    .sendmessage {
+      width: 112px;
+      margin-left: 10px;
+      vertical-align: bottom;
+    }
+    .loginBtn {
+      width: 100%;
+    }
   }
 }
 </style>
