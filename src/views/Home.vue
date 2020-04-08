@@ -1,16 +1,17 @@
+/* eslint-disable prettier/prettier */
 <template>
   <div class="home">
     <el-container>
-      <el-aside width="200px">
+      <el-aside width="256px" class="aside">
         <el-menu
-          default-active="2"
+          default-active="1"
           class="el-menu-vertical"
           @open="handleOpen"
           @close="handleClose"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b"
+          background-color="black"
+          text-color="white"
         >
+          <p class="title">诸葛小戴</p>
           <el-menu-item index="1">
             <i class="el-icon-odometer"></i>
             <span slot="title">开始推荐</span>
@@ -26,7 +27,10 @@
         </el-menu>
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header class="header">
+          <i class="el-icon-s-custom"></i>
+          <span>{{ mobile }}</span>
+        </el-header>
         <el-main>
           <router-view />
         </el-main>
@@ -41,6 +45,15 @@
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      user: {
+        id: 0,
+        mobile: '',
+        type: 0
+      }
+    };
+  },
   components: {},
   methods: {
     handleOpen() {
@@ -55,11 +68,24 @@ export default {
 <style scoped lang="less">
 .home {
   /*height: 100%;*/
-  .el-container {
-    /*height: 100%;*/
-    .el-menu-vertical {
-      height: 100vh;
-      background-color: #545c64;
+  .title {
+    font-size: 28px;
+    color: white;
+  }
+
+  /*height: 100%;*/
+  .el-menu-vertical {
+    height: 100vh;
+    background-color: #545c64;
+  }
+
+  .header {
+    padding: 20px;
+    text-align: right;
+    border-bottom: 1px solid #a5999938;
+
+    i {
+      color: #409eff;
     }
   }
 }

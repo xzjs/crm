@@ -20,8 +20,15 @@
           <img :src="captcha" alt @click="get_captcha" />
         </el-form-item>
         <el-form-item>
-          <el-input placeholder="短信验证码" prefix-icon="el-icon-message" class="vcode" v-model="vcode"></el-input>
-          <el-button class="sendmessage" @click="get_vcode">发送验证码</el-button>
+          <el-input
+            placeholder="短信验证码"
+            prefix-icon="el-icon-message"
+            class="vcode"
+            v-model="vcode"
+          ></el-input>
+          <el-button class="sendmessage" @click="get_vcode"
+            >发送验证码</el-button
+          >
         </el-form-item>
         <el-form-item>
           <el-button class="loginBtn" type="primary">登录</el-button>
@@ -35,11 +42,11 @@
 export default {
   data() {
     return {
-      captcha: "",
-      mobile: "",
-      vcode: "",
-      input_captcha: "",
-      captcha_id: ""
+      captcha: '',
+      mobile: '',
+      vcode: '',
+      input_captcha: '',
+      captcha_id: ''
     };
   },
   methods: {
@@ -56,18 +63,16 @@ export default {
     },
     get_vcode() {
       this.axios
-        .post("/v1/captcha", { ID: this.captcha_id, B64s: this.input_captcha })
-        .then(response => {
+        .post('/v1/captcha', { ID: this.captcha_id, B64s: this.input_captcha })
+        .then((response) => {
           if (response.data == true) {
             console.log(response.data);
           } else {
-            this.$message.error("图形验证码错误");
+            this.$message.error('图形验证码错误');
           }
         });
     },
-    login() {
-      
-    }
+    login() {}
   },
   mounted() {
     this.get_captcha();
