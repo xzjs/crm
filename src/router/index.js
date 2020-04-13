@@ -25,12 +25,13 @@ const router = new VueRouter({
 
 //全局前置守卫
 router.beforeEach((to, from, next) => {
-  if (to.name == 'Login' || localStorage.token) {
+  if (to.name == 'Login' || localStorage.isLogin) {
     next();
+  } else {
+    next({
+      path: '/login'
+    });
   }
-  next({
-    path: '/login'
-  });
 });
 
 export default router;
