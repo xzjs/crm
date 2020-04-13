@@ -1,19 +1,35 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Login from '../views/Login';
+import Start from '../views/Start';
+import Analyze from '../views/Analyze';
+import Home from '../views/Home';
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: '/',
+    redirect: '/home/start'
+  },
   {
     path: '/login',
     name: 'Login',
     component: Login
   },
   {
-    path: '/',
-    name: 'Home',
-    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
+    path: '/home',
+    component: Home,
+    children: [
+      {
+        path: 'start',
+        component: Start
+      },
+      {
+        path: 'analyze',
+        component: Analyze
+      }
+    ]
   }
 ];
 

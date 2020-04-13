@@ -1,42 +1,42 @@
-/* eslint-disable prettier/prettier */
 <template>
-  <div class="home">
-    <el-container>
-      <el-aside width="256px" class="aside">
-        <el-menu
-          default-active="1"
-          class="el-menu-vertical"
-          @open="handleOpen"
-          @close="handleClose"
-          background-color="black"
-          text-color="white"
-        >
-          <p class="title">诸葛小戴</p>
-          <el-menu-item index="1">
-            <i class="el-icon-odometer"></i>
-            <span slot="title">开始推荐</span>
-          </el-menu-item>
-          <el-menu-item index="2">
-            <i class="el-icon-odometer"></i>
-            <span slot="title">推荐分析</span>
-          </el-menu-item>
-          <el-menu-item index="3">
-            <i class="el-icon-notebook-2"></i>
-            <span slot="title">登录记录</span>
-          </el-menu-item>
-        </el-menu>
-      </el-aside>
-      <el-container>
-        <el-header class="header">
-          <i class="el-icon-s-custom"></i>
-          <span>{{ mobile }}</span>
-        </el-header>
-        <el-main>
-          <router-view />
-        </el-main>
-      </el-container>
+  <el-container>
+    <el-aside width="225px" class="aside">
+      <img src="@/assets/img/logo.png" alt="" />
+      <el-menu
+        default-active="start"
+        class="menu"
+        background-color=""
+        text-color="white"
+        active-text-color="#0076CE"
+        :router="true"
+      >
+        <el-menu-item index="start">
+          <i class="el-icon-odometer"></i>
+          <span slot="title">开始推荐</span>
+        </el-menu-item>
+        <el-menu-item index="analyze">
+          <i class="el-icon-odometer"></i>
+          <span slot="title">推荐分析</span>
+        </el-menu-item>
+        <el-menu-item index="3">
+          <i class="el-icon-notebook-2"></i>
+          <span slot="title">登录记录</span>
+        </el-menu-item>
+      </el-menu>
+    </el-aside>
+    <el-container class="container">
+      <el-header class="header" height="81px">
+        <img src="@/assets/img/dell.png" alt="" class="dell" />
+        <div class="portrait">
+          <img src="@/assets/img/portrait.png" alt="" />
+          <span>{{ user.mobile }}</span>
+        </div>
+      </el-header>
+      <el-main>
+        <router-view />
+      </el-main>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script>
@@ -49,7 +49,7 @@ export default {
     return {
       user: {
         id: 0,
-        mobile: '',
+        mobile: '1234567890',
         type: 0
       }
     };
@@ -66,26 +66,54 @@ export default {
 };
 </script>
 <style scoped lang="less">
-.home {
-  /*height: 100%;*/
-  .title {
-    font-size: 28px;
-    color: white;
+.aside {
+  background-image: linear-gradient(#0076ce, #1fb8ff);
+  height: 100vh;
+
+  img {
+    margin: 35px 13px;
+    width: 198px;
+    height: 50px;
   }
 
-  /*height: 100%;*/
-  .el-menu-vertical {
-    height: 100vh;
-    background-color: #545c64;
-  }
+  .menu {
+    background-color: transparent;
 
-  .header {
-    padding: 20px;
-    text-align: right;
-    border-bottom: 1px solid #a5999938;
+    .is-active {
+      background-color: #fff;
+    }
+
+    .el-menu-item {
+      font-size: 28px;
+    }
 
     i {
-      color: #409eff;
+      font-size: 28px;
+    }
+  }
+}
+
+.container {
+  background-color: #f3f5f9;
+  .header {
+    padding: 17px 37px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+
+    .dell {
+      width: 177px;
+      height: 41px;
+    }
+
+    .portrait {
+      float: right;
+
+      img {
+        width: 36px;
+        height: 38px;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
     }
   }
 }
