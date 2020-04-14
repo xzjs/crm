@@ -74,9 +74,13 @@ export default {
     },
     get_vcode() {
       this.axios
-        .post('/v1/captcha', { Id: this.captcha_id, B64s: this.input_captcha })
+        .post('/v1/sms', {
+          Id: this.captcha_id,
+          B64s: this.input_captcha,
+          Mobile: this.mobile
+        })
         .then((response) => {
-          if (response.data == true) {
+          if (response.data == 'success') {
             this.$message({
               message: '短信发送成功',
               type: 'success'

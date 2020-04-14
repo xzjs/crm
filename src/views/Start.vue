@@ -32,7 +32,7 @@
           >
             <el-button type="text" size="small">上传</el-button>
           </el-upload>
-          <el-button @click="del(scope.row)" type="text" size="small"
+          <el-button @click="del(scope.row.id)" type="text" size="small"
             >删除</el-button
           >
         </template>
@@ -46,32 +46,7 @@ export default {
   name: 'Start',
   data() {
     return {
-      table_data: [
-        {
-          name: 'CAS.csv',
-          time: '',
-          id: 0,
-          process: 0
-        },
-        {
-          name: 'acct_coverage_by_event.txt',
-          time: '',
-          id: 0,
-          process: 0
-        },
-        {
-          name: 'CASData.txt',
-          time: '',
-          id: 0,
-          process: 0
-        },
-        {
-          name: 'visit_history.txt',
-          time: '',
-          id: 0,
-          process: 0
-        }
-      ],
+      table_data: [],
       name: ''
     };
   },
@@ -107,9 +82,50 @@ export default {
           this.$message.error('开始任务失败');
           console.log(err.response.data);
         });
+    },
+    del(id) {
+      this.axios
+        .delete('/v1/file/' + id)
+        .then(() => {
+          this.init();
+          this.getFiles();
+        })
+        .catch((err) => {
+          this.$message.error('删除失败');
+          console.log(err);
+        });
+    },
+    init() {
+      this.table_data = [
+        {
+          name: 'CAS.csv',
+          time: '',
+          id: 0,
+          process: 0
+        },
+        {
+          name: 'acct_coverage_by_event.txt',
+          time: '',
+          id: 0,
+          process: 0
+        },
+        {
+          name: 'CASData.txt',
+          time: '',
+          id: 0,
+          process: 0
+        },
+        {
+          name: 'visit_history.txt',
+          time: '',
+          id: 0,
+          process: 0
+        }
+      ];
     }
   },
   mounted() {
+    this.init();
     this.getFiles();
   }
 };

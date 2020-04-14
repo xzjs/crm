@@ -39,7 +39,31 @@
         <el-button type="primary" @click="getDataByAffinityId">分析</el-button>
         <div id="echarts"></div>
       </el-tab-pane>
-      <el-tab-pane label="产品分析">配置管理</el-tab-pane>
+      <el-tab-pane label="产品分析">
+        <el-select
+          v-model="product"
+          placeholder="请选择产品"
+          @change="getDataByProduct"
+        >
+          <el-option
+            v-for="item in products"
+            :key="item.ProductDesc"
+            :label="item.ProductDesc"
+            :value="item.ProductDesc"
+          >
+          </el-option>
+        </el-select>
+        <el-table :data="productData" stripe>
+          <el-table-column
+            prop="AffinityId"
+            label="AffinityId"
+          ></el-table-column>
+          <el-table-column
+            prop="Probability"
+            label="Probability"
+          ></el-table-column>
+        </el-table>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -54,11 +78,10 @@ export default {
       tableData: [],
       num: 0,
       pageSize: 100,
-      xAxis: [],
-      yAxis: [],
-      dataShadow: [],
-      affinityIds: [],
       affinityId: '',
+      products: [],
+      product: '',
+      productData: [],
       myChart: null,
       option: {
         calculable: true,
@@ -191,7 +214,7 @@ export default {
           console.log(err.response.data);
         });
     },
-    // 根据选择的id获取数据并渲染
+    // 根据选择的id获取数据并渲染echarts
     getDataByAffinityId() {
       this.axios
         .get('/v1/result', {
@@ -221,6 +244,68 @@ export default {
 
           this.myChart = echarts.init(document.getElementById('echarts'));
           this.myChart.setOption(this.option);
+
+          var zoomSize = 6;
+          this.myChart.on('click', (params) => {
+            this.myChart.dispatchAction({
+              type: 'dataZoom',
+              startValue: this.option.xAxis.data[
+                Math.max(params.dataIndex - zoomSize / 2, 0)
+              ],
+              endValue: this.option.xAxis.data[
+                Math.min(
+                  params.dataIndex + zoomSize / 2,
+                  this.option.series[1].data.length - 1
+                )
+              ]
+            });
+          });
+        })
+        .catch((err) => {
+          this.$message.error('获取数据失败');
+          console.log(err.response.data);
+        });
+    },
+    // 获取产品列表
+    getProducts() {
+      this.axios
+        .get('/v1/result', {
+          params: {
+            query:
+              'task_id:' +
+              this.$route.params.id +
+              ',is_emerging:' +
+              (this.isEmerging ? 1 : 0),
+            fields: 'ProductDesc'
+          }
+        })
+        .then((response) => {
+          this.products = response.data.data;
+        })
+        .catch((err) => {
+          this.$message.error('获取数据失败');
+          console.log(err.response.data);
+        });
+    },
+    // 根据产品获取数据
+    getDataByProduct() {
+      this.axios
+        .get('/v1/result', {
+          params: {
+            query:
+              'task_id:' +
+              this.$route.params.id +
+              ',is_emerging:' +
+              (this.isEmerging ? 1 : 0) +
+              ',ProductDesc:' +
+              this.product,
+            fields: 'AffinityId,ProductDesc,Probability',
+            sortby: 'Probability',
+            order: 'desc'
+          }
+        })
+        .then((response) => {
+          this.productData = response.data.data;
         })
         .catch((err) => {
           this.$message.error('获取数据失败');
@@ -231,6 +316,9 @@ export default {
   mounted() {
     // tab1
     this.getTableData();
+
+    // tab3
+    this.getProducts();
   }
 };
 </script>

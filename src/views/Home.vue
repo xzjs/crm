@@ -18,7 +18,7 @@
           <i class="el-icon-odometer"></i>
           <span slot="title">推荐分析</span>
         </el-menu-item>
-        <el-menu-item index="3">
+        <el-menu-item index="/home/record">
           <i class="el-icon-notebook-2"></i>
           <span slot="title">登录记录</span>
         </el-menu-item>

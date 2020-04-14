@@ -5,6 +5,7 @@ import Start from '../views/Start';
 import Analyze from '../views/Analyze';
 import Home from '../views/Home';
 import Show from '../views/Show';
+import Record from '../views/Record';
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,10 @@ const routes = [
       {
         path: 'show/:id',
         component: Show
+      },
+      {
+        path: 'record',
+        component: Record
       }
     ]
   }
