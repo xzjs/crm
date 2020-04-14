@@ -4,6 +4,7 @@ import Login from '../views/Login';
 import Start from '../views/Start';
 import Analyze from '../views/Analyze';
 import Home from '../views/Home';
+import Show from '../views/Show';
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,10 @@ const routes = [
       {
         path: 'analyze',
         component: Analyze
+      },
+      {
+        path: 'show/:id',
+        component: Show
       }
     ]
   }

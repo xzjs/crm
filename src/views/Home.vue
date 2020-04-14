@@ -10,11 +10,11 @@
         active-text-color="#0076CE"
         :router="true"
       >
-        <el-menu-item index="start">
+        <el-menu-item index="/home/start">
           <i class="el-icon-odometer"></i>
           <span slot="title">开始推荐</span>
         </el-menu-item>
-        <el-menu-item index="analyze">
+        <el-menu-item index="/home/analyze">
           <i class="el-icon-odometer"></i>
           <span slot="title">推荐分析</span>
         </el-menu-item>
