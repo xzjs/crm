@@ -52,12 +52,18 @@ export default {
   },
   methods: {
     getFiles() {
-      this.axios.get('/v1/file').then((response) => {
-        let data = response.data;
-        for (let i = 0; i < data.length; i++) {
-          this.updateData(data[i]);
-        }
-      });
+      this.axios
+        .get('/v1/file')
+        .then((response) => {
+          let data = response.data;
+          for (let i = 0; i < data.length; i++) {
+            this.updateData(data[i]);
+          }
+        })
+        .catch((err) => {
+          this.$message.error('获取文件失败');
+          console.log(err.response.data);
+        });
     },
     updateData(data) {
       for (let i = 0; i < this.table_data.length; i++) {

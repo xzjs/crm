@@ -9,6 +9,7 @@ axios.interceptors.response.use(
     if (err.response.status == 401) {
       localStorage.isLogin = false;
       router.push('/login');
+      throw err;
     }
   }
 );

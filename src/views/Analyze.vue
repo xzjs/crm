@@ -10,7 +10,21 @@
     </el-table-column>
     <el-table-column label="操作">
       <template slot-scope="scope">
-        <router-link :to="'show/' + scope.row.Id">分析</router-link>
+        <div v-if="scope.row.Status == 3">
+          <router-link :to="'show/' + scope.row.Id">分析</router-link>
+          &nbsp;&nbsp;
+          <a
+            :href="'/v1/task/' + scope.row.Id + '?is_emerging=0'"
+            target="_blank"
+            >全部用户下载</a
+          >
+          &nbsp;&nbsp;
+          <a
+            :href="'/v1/task/' + scope.row.Id + '?is_emerging=1'"
+            target="_blank"
+            >新用户下载</a
+          >
+        </div>
       </template>
     </el-table-column>
   </el-table>
