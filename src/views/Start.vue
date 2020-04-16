@@ -61,7 +61,6 @@ export default {
           }
         })
         .catch((err) => {
-          this.$message.error('获取文件失败');
           console.log(err.response.data);
         });
     },

@@ -29,7 +29,7 @@
         <img src="@/assets/img/dell.png" alt="" class="dell" />
         <div class="portrait">
           <img src="@/assets/img/portrait.png" alt="" />
-          <span>{{ user.mobile }}</span>
+          <span>{{ user.Mobile }}</span>
         </div>
       </el-header>
       <el-main>
@@ -48,20 +48,27 @@ export default {
   data() {
     return {
       user: {
-        id: 0,
-        mobile: '1234567890',
-        type: 0
+        Id: 0,
+        Mobile: '',
+        Type: 0
       }
     };
   },
   components: {},
   methods: {
-    handleOpen() {
-      console.log('open');
-    },
-    handleClose() {
-      console.log('close');
+    getUser() {
+      this.axios
+        .get('/v1/login')
+        .then((response) => {
+          this.user = response.data;
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+        });
     }
+  },
+  mounted() {
+    this.getUser();
   }
 };
 </script>

@@ -4,6 +4,7 @@
       v-model="isEmerging"
       active-text="新用户"
       inactive-text="全部用户"
+      @change="getTableData"
     >
     </el-switch>
     <el-tabs class="tab" tab-position="left">
@@ -74,7 +75,7 @@ import echarts from 'echarts';
 export default {
   data() {
     return {
-      isEmerging: true,
+      isEmerging: false,
       tableData: [],
       num: 0,
       pageSize: 100,
