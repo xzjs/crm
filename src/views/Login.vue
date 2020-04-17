@@ -57,7 +57,8 @@ export default {
       mobile: '',
       vcode: '',
       input_captcha: '',
-      captcha_id: ''
+      captcha_id: '',
+      vcodeSend: false
     };
   },
   methods: {
@@ -73,6 +74,10 @@ export default {
         });
     },
     get_vcode() {
+      if (this.mobile == '' || this.input_captcha == '') {
+        this.$message.error('请输入手机号和验证码');
+        return;
+      }
       this.axios
         .post('/v1/sms', {
           Id: this.captcha_id,
@@ -85,6 +90,7 @@ export default {
               message: '短信发送成功',
               type: 'success'
             });
+            this.vcodeSend = true;
           } else {
             this.$message.error('图形验证码错误');
           }
@@ -95,18 +101,27 @@ export default {
         });
     },
     login() {
+      if (!this.vcodeSend) {
+        this.$message.error('请先获取验证码');
+        return;
+      }
+      if (!this.vcode) {
+        this.$message.error('请输入验证码');
+        return;
+      }
       this.axios
         .post('/v1/login', {
           Mobile: this.mobile,
           Vcode: this.vcode
         })
-        .then(() => {
+        .then((response) => {
+          console.log(response);
           localStorage.isLogin = true;
           this.$router.push('/');
         })
         .catch((error) => {
           this.$message.error('登录失败');
-          console.log(error.data);
+          console.log(error.response.data);
         });
     }
   },
