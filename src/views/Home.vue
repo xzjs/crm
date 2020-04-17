@@ -30,6 +30,8 @@
         <div class="portrait">
           <img src="@/assets/img/portrait.png" alt="" />
           <span>{{ user.Mobile }}</span>
+          &nbsp;&nbsp;
+          <el-button type="text" @click="logout">退出</el-button>
         </div>
       </el-header>
       <el-main>
@@ -63,6 +65,19 @@ export default {
           this.user = response.data;
         })
         .catch((err) => {
+          console.log(err.response.data);
+        });
+    },
+    logout() {
+      this.axios
+        .delete('/v1/login/0')
+        .then((response) => {
+          console.log(response.data);
+          localStorage.isLogin = false;
+          this.$router.push('/login');
+        })
+        .catch((err) => {
+          this.$message.error('退出失败');
           console.log(err.response.data);
         });
     }

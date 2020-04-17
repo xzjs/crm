@@ -54,7 +54,7 @@
           >
           </el-option>
         </el-select>
-        <el-table :data="productData" stripe>
+        <el-table :data="productData" stripe v-loading="loading">
           <el-table-column
             prop="AffinityId"
             label="AffinityId"
@@ -159,7 +159,8 @@ export default {
             data: []
           }
         ]
-      }
+      },
+      loading: false
     };
   },
   methods: {
@@ -290,6 +291,7 @@ export default {
     },
     // 根据产品获取数据
     getDataByProduct() {
+      this.loading = true;
       this.axios
         .get('/v1/result', {
           params: {
@@ -307,10 +309,12 @@ export default {
         })
         .then((response) => {
           this.productData = response.data.data;
+          this.loading = false;
         })
         .catch((err) => {
           this.$message.error('获取数据失败');
           console.log(err.response.data);
+          this.loading = false;
         });
     }
   },
