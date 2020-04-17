@@ -78,6 +78,18 @@ export default {
       this.updateData({ name: name, process: 0 });
     },
     start() {
+      if (!this.name) {
+        this.$message.error('请填写标题');
+        return;
+      }
+      if (
+        !this.table_data.every((data) => {
+          return data.process == 100;
+        })
+      ) {
+        this.$message.error('请确保四个特征文件都上传完成');
+        return;
+      }
       this.axios
         .post('/v1/task', { Name: this.name })
         .then(() => {
