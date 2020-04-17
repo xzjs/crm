@@ -12,7 +12,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    redirect: '/home/start'
+    redirect: '/home/analyze'
   },
   {
     path: '/login',
